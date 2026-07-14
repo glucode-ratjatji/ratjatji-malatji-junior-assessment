@@ -1,0 +1,73 @@
+TODO App
+
+Overview
+
+You will be creating a TODO list app that allows users to manage their tasks while also displaying the current weather information. The app will show the current temperature, as well as the sunrise and sunset times for the day, providing users with helpful context as they plan their activities.
+
+- [ ] By participating in this assessment, you agree to complete it with integrity. Please do not use any AI-assisted tools, such as ChatGPT. However, referring to official documentation is encouraged.
+- [ ] By participating in this assessment, you agree to complete it individually.
+- [ ] By participating in this assessment, you agree that it will be done on your own time and not affect your current utilization and day to day operation.
+
+Technology
+
+ iOS
+
+iOS developers need to make use of the following:
+
+- Swift
+- SwiftUI + Any interoperability with UI Kit if required
+- SwiftData / Realm
+
+Android
+
+Android developers should make use of the following:
+
+- Kotlin
+- Jetpack Compose + Any interoperability with XML if required
+- Jetpack Room / Realm
+
+Requirements
+
+Create a to do list app. It should contain the following:
+
+TODO List Implementation
+
+- [ ] Setup a project with local data persistence
+- [ ] Create a basic list view with two sections: "To do", "Completed"
+- [ ] Implement the ability to add tasks and persist them to the local database
+- [ ] Each task should have a title, description, and a visual indication if it is completed
+- [ ] Implement the ability to mark tasks as completed
+- [ ] Tasks marked as completed should move to the completed section
+- [ ] Implement the removal of tasks
+
+Weather Implementation
+
+Please make use of the following API that is freely available to use on a basic account: https://www.weatherapi.com/docs/
+
+Hint: You require an API key to make calls to get the data.
+
+- [ ] Create a generic networking layer so that you can make the associated network calls.
+- [ ] Create functionality that fetches and shows the Current Temperature in a view
+- [ ] Create functionality that fetches and shows the sunrise time in a view
+- [ ] Create functionality that fetches and shows the sunset time in a view
+- [ ] Weather implementation should ideally use the devices location as part of fetching the data.
+
+User Interface considerations
+
+- [ ] Be creative, create the UI and UX you see fit!
+- [ ] Support light and dark mode
+
+Overall Quality Checks
+
+- [ ] Support native dynamic text sizing
+- [ ] Write Unit tests for at least one class.
+
+Resources
+
+- SwiftUI Documentation: https://developer.apple.com/documentation/swiftui/
+- SwiftData Guide: https://developer.apple.com/documentation/swiftdata
+- Jetpack Compose Documentation: https://developer.android.com/jetpack/compose
+- Jetpack Room Guide: https://developer.android.com/training/data-storage/room
+- GitHub Guide: https://guides.github.com
+- Realm Swift: https://github.com/realm/realm-swift
+- Realm Kotlin: https://github.com/realm/realm-kotlin
