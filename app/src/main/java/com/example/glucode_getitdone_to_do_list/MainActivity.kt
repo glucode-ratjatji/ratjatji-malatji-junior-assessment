@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.CheckableCardComponent
+import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.WeatherCardComponent
 import com.example.glucode_getitdone_to_do_list.ui.theme.Glucode_GetItDone_To_Do_ListTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
                     Column(modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally) {
                         Spacer(modifier= Modifier.height(100.dp))
+                        WeatherCardComponent()
                         CheckableCardComponent("Add a top App Bar", "This will show the name of the application")
                         CheckableCardComponent("create a card for the weather", "This will display the current weather, sunrise, sunset with an emoji")
                         CheckableCardComponent()
