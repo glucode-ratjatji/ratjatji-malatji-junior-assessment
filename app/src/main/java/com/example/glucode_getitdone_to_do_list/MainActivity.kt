@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.TaskScreen.TaskScreenPage
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.CheckableCardComponent
+import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.EnterToDoDetails
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.ToDoTab
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.WeatherCardComponent
 import com.example.glucode_getitdone_to_do_list.ui.theme.Glucode_GetItDone_To_Do_ListTheme
@@ -55,10 +56,12 @@ class MainActivity : ComponentActivity() {
                         Spacer(modifier= Modifier.height(100.dp))
                         WeatherCardComponent()
 
-                        CheckableCardComponent("Add a top App Bar", "This will show the name of the application")
-                        CheckableCardComponent("create a card for the weather", "This will display the current weather, sunrise, sunset with an emoji")
-                        CheckableCardComponent()
+//                        CheckableCardComponent("Add a top App Bar", "This will show the name of the application")
+//                        CheckableCardComponent("create a card for the weather", "This will display the current weather, sunrise, sunset with an emoji")
+//                        CheckableCardComponent()
+                        EnterToDoDetails()
                         ToDoTab()
+
                     }
                 }
             }
