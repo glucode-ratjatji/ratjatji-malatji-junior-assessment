@@ -49,6 +49,7 @@ dependencies {
 
     // JSON Parsing: Converts API responses into Kotlin data classes
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation(libs.androidx.navigation.compose)
 
     // Concurrency: Kotlin Coroutines for asynchronous API requests
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
