@@ -41,11 +41,16 @@ android {
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0")
+    //implementation("androidx.lifecycle:lifecycle-livedata:2.11.0-ktx:2.11.0")
+
     //Extra icons
     implementation("androidx.compose.material:material-icons-extended")
 
     // Networking: Retrofit HTTP client
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // JSON Parsing: Converts API responses into Kotlin data classes
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")

@@ -20,12 +20,12 @@ fun TaskScreenPage() {
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(modifier= Modifier.height(100.dp))
-            WeatherCardComponent()
-            ToDoTab()
-            CheckableCardComponent("Add a top App Bar", "This will show the name of the application")
-            CheckableCardComponent("create a card for the weather", "This will display the current weather, sunrise, sunset with an emoji")
-            CheckableCardComponent()
+//            Spacer(modifier= Modifier.height(100.dp))
+//            WeatherCardComponent()
+//            ToDoTab()
+//            CheckableCardComponent("Add a top App Bar", "This will show the name of the application")
+//            CheckableCardComponent("create a card for the weather", "This will display the current weather, sunrise, sunset with an emoji")
+//            CheckableCardComponent()
         }
     }
 }
