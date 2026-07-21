@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     // Add the KSP plugin
     id("com.google.devtools.ksp")
+    // 2. Apply the Hilt plugin
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -55,10 +57,18 @@ dependencies {
     // JSON Parsing: Converts API responses into Kotlin data classes
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.transport.runtime)
 
     // Concurrency: Kotlin Coroutines for asynchronous API requests
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
 
+    // 1. Core Dagger Hilt Library
+    implementation("com.google.dagger:hilt-android:2.60.1")
+
+    // 2. Hilt Compiler (This is what actually generates the code for @Inject)
+    ksp("com.google.dagger:hilt-android-compiler:2.60.1")
+    // 3. Hilt Compose Navigation (Crucial for injecting ViewModels in your NavGraph)
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     val room_version = "2.8.4" // Check for the latest stable version
 
     implementation("androidx.room:room-runtime:$room_version")
