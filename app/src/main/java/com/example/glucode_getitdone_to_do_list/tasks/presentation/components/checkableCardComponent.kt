@@ -42,7 +42,7 @@ fun CheckableCardComponent(
                     modifier = Modifier.padding(8.dp),
                     enabled = true,
                     colors = CheckboxDefaults.colors(
-                        checkedColor = Color.Green,
+                        checkedColor = Color.Blue,
                         uncheckedColor = Color.DarkGray,
                         checkmarkColor = Color.White
                     ),
