@@ -42,7 +42,7 @@ fun WeatherCardComponent(
         Column(modifier = Modifier.padding(12.dp)) {
 // Handle Loading State
             if (isLoading) {
-                Text("Fetching weather...")
+                Text("Fetching weather...") //TO DO Add a skeleton card
                 return@Column
             }
 

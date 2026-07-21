@@ -46,22 +46,23 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 
 @SuppressLint("UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
+
 @Composable
-fun EnterToDoDetails() {
+fun EnterToDoDetails(viewModel: TaskViewModel) {
+    val items by viewModel.tasks.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
-    var title by remember{mutableStateOf("fdgdfggdgdfg")}
+    var title by remember{mutableStateOf("")}
     var description by remember{mutableStateOf("ddfgdfgdgdgfdgfdgdgdgdgdgdfggfdgdgdgdfgdfgdgdgdgdgdfgfdgdgdgdggfdfgd")}
 
-    Scaffold(
-
-    ) {
+    Scaffold{
         Surface(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(horizontal = 40.dp)
 
         ) {
@@ -92,7 +93,11 @@ fun EnterToDoDetails() {
                         onDone = { focusManager.clearFocus() }
                     )
                 )
-                Button(onClick = {}) {
+                Button(onClick = {
+                    viewModel.addTask(title, description)
+                    title = ""
+                    description=""
+                }) {
                     Text("Add item")
                 }
             }
