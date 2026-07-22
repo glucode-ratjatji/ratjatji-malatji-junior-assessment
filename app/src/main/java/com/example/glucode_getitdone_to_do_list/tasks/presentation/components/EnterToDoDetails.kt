@@ -54,7 +54,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 
-@SuppressLint("UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter",
+    "SuspiciousIndentation"
+)
 @Composable
 fun EnterToDoDetails(viewModel: TaskViewModel, dismissBottomSheet: () -> Unit) {
     val items by viewModel.tasks.collectAsStateWithLifecycle()
@@ -120,6 +122,7 @@ fun EnterToDoDetails(viewModel: TaskViewModel, dismissBottomSheet: () -> Unit) {
                     viewModel.addTask(title, description)
                     title = ""
                     description=""
+                    dismissBottomSheet()
                 }, enabled = isButtonEnabled, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue,
                     disabledContentColor = Color.LightGray

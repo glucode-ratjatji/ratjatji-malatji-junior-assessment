@@ -1,7 +1,6 @@
 package com.example.glucode_getitdone_to_do_list
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,11 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,20 +29,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             Glucode_GetItDone_To_Do_ListTheme {
                 ToDoWeatherApp()
-                }
             }
         }
     }
+}
 
 
-    @RequiresApi(VERSION_CODES.O)
-    @Composable
-    fun ToDoWeatherApp(){
-        Surface(modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background) {
-            Column(verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                MainNavGraph()}
-        }
+@RequiresApi(VERSION_CODES.O)
+@Composable
+fun ToDoWeatherApp(){
+    Surface(modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background) {
+        Column(verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            MainNavGraph()}
     }
-
+}
