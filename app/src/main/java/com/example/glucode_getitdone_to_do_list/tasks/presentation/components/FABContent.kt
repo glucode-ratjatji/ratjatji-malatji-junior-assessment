@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FABContent(onTap: () -> Unit) {
     FloatingActionButton(
-        onClick = {},// onTap() },
+        onClick = { onTap() },
         shape = RoundedCornerShape(20.dp),
         containerColor = Color.Blue,
         contentColor = Color.White
