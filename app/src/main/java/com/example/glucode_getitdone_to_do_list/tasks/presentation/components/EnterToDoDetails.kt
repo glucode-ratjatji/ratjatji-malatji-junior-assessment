@@ -1,0 +1,127 @@
+package com.example.glucode_getitdone_to_do_list.tasks.presentation.components
+
+import android.annotation.SuppressLint
+import android.view.Surface
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+@SuppressLint("UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun EnterToDoDetails(
+    dismissBottomSheet: () -> Unit
+) {
+    val focusManager = LocalFocusManager.current
+    var title by rememberSaveable{mutableStateOf("")}
+    var description by rememberSaveable(){mutableStateOf("")}
+    val isButtonEnabled = title.isNotEmpty() && description.isNotEmpty()
+
+           Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 12.dp)
+
+        ) {
+            Column(
+                modifier = Modifier
+                    .background(Color.White)
+                    .fillMaxWidth(0.8f)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+
+                //Row with cancel, heading and save
+                Box(modifier = Modifier.fillMaxWidth()){
+                    Text(
+                        "Cancel",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier
+                            .clickable(onClick = dismissBottomSheet)
+                            .align(alignment = Alignment.CenterStart),
+                        color = Color.Blue)
+
+                    Text(
+                        "New To-Do",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier
+                            .align(alignment = Alignment.Center)
+                    )
+                }
+                OutlinedTextField(
+                    modifier = Modifier.width(300.dp),
+                    value = title,
+                    onValueChange = {title = it},
+                    label = { Text("Title") },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
+                    )
+                )
+                OutlinedTextField(
+                    modifier = Modifier.width(300.dp),
+                    value = description,
+                    onValueChange = {description = it},
+                    label = { Text("Description") },
+                    minLines = 2,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = { focusManager.clearFocus() }
+                    )
+                )
+                Button(onClick = {}, enabled = isButtonEnabled, colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Blue,
+                    disabledContentColor = Color.LightGray
+                )){
+
+                    Text("Add item")
+                }
+            }
+        }
+    }
