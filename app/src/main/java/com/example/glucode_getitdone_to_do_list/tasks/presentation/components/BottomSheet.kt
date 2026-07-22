@@ -17,12 +17,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 //https://developer.android.com/develop/ui/compose/components/bottom-sheets-partial
-fun BottomSheet() {
-    var showBottomSheet by remember { mutableStateOf(false) }
+fun BottomSheet(taskViewModel: TaskViewModel = hiltViewModel(), onDismiss: () -> Unit) {
+    var showBottomSheet by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false,
     )
@@ -31,22 +33,16 @@ fun BottomSheet() {
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Button(
-            onClick = { showBottomSheet = true }
-        ) {
-            Text("Display partial bottom sheet")
-        }
-
         if (showBottomSheet) {
             ModalBottomSheet(
                 //modifier = Modifier.fillMaxHeight(),
                 sheetState = sheetState,
-                onDismissRequest = { showBottomSheet}
+                onDismissRequest = onDismiss
             ) {
                 EnterToDoDetails(
-                    dismissBottomSheet = {
-                    showBottomSheet = false
-                })
+                    dismissBottomSheet = onDismiss,
+                    viewModel = taskViewModel
+                )
         }
     }
 }
