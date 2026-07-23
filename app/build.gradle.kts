@@ -57,12 +57,15 @@ dependencies {
     // JSON Parsing: Converts API responses into Kotlin data classes
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
     implementation(libs.ads.mobile.sdk)
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.media3.test.utils)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.transport.runtime)
 
     // Concurrency: Kotlin Coroutines for asynchronous API requests
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
-
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     // 1. Core Dagger Hilt Library
     implementation("com.google.dagger:hilt-android:2.60.1")
 

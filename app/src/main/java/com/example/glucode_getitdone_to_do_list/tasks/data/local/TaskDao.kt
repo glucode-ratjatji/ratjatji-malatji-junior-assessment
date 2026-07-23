@@ -12,14 +12,14 @@ interface TaskDao {
     fun getAll(): Flow<List<Task>>
 
     @Query("SELECT * FROM task WHERE id IN (:taskIds)")
-    fun loadAllByIds(taskIds: IntArray): List<Task>
+    fun loadAllByIds(taskIds: Int): List<Task>
 
     @Query("SELECT * FROM task WHERE task_title LIKE :title LIMIT 1")
     fun findByTitle(title: String): Task
 
     @Insert
-    suspend fun insertAll(vararg task: Task)
+     fun insertAll(vararg task: Task)
 
     @Delete
-    suspend fun delete(task: Task)
+     fun delete(task: Task)
 }
