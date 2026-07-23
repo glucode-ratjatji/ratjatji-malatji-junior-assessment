@@ -52,6 +52,7 @@ fun MainDashboardScreen(navController: NavController,
 ) {
     val taskList by taskViewModel.tasks.collectAsState()
     var taskToDelete by remember { mutableStateOf<Task?>(null) }
+    var taskToUpdate by remember { mutableStateOf<Task?>(null) }
     val weatherData by viewModel.weatherData.collectAsState<WeatherResponse?>()
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.error.collectAsState()
@@ -86,8 +87,9 @@ fun MainDashboardScreen(navController: NavController,
             Spacer(modifier = Modifier.height(16.dp))
             if (showBottomSheet) {
                 BottomSheet(
-                    taskViewModel,
-                    onDismiss = { showBottomSheet = false }
+                    taskToEdit = taskToUpdate,
+                    onDismiss = { showBottomSheet = false
+                    taskToUpdate = null}
                 )
             }
 
@@ -98,25 +100,26 @@ fun MainDashboardScreen(navController: NavController,
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // loop through every task in your Room database
+                    // loop through every task in your db that are NOT complete
                     items(taskList) { task ->
-                        //if (task.isComplete) {
+      //                  if (!task.isComplete) {
                             Column() {
                                 CheckableCardComponent(
                                     title = task.title,
                                     description = task.description,
                                     isChecked = task.isComplete,
-                                    onCheckedChanged = { isChecked ->
-                                        // Tell the ViewModel the user changed the state!
-                                        taskViewModel.onTaskUpdated(task, isChecked)
+                                    onCheckedChanged = { newIsCheckedStatus ->
+                                        val toggledTask = task.copy(isComplete = newIsCheckedStatus)
+                                        taskViewModel.onTaskUpdated(toggledTask)
                                     },
                                     onLongClick = {
                                         taskToDelete = task
-                                    }
-
+                                    },
+                                    onTap = { showBottomSheet = true ; taskToUpdate = task},
+                                    onEdit = {}
                                 )
                             }
-                       // }
+                     //   }
                     }
                 }
 

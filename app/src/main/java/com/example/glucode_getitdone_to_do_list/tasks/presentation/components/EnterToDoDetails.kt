@@ -53,18 +53,23 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
+import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 
 @SuppressLint("UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter",
     "SuspiciousIndentation"
 )
 @Composable
-fun EnterToDoDetails(viewModel: TaskViewModel, dismissBottomSheet: () -> Unit) {
+fun EnterToDoDetails(viewModel: TaskViewModel, taskToEdit: Task? = null, dismissBottomSheet: () -> Unit) {
     val items by viewModel.tasks.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
-    var title by rememberSaveable{mutableStateOf("")}
-    var description by rememberSaveable(){mutableStateOf("")}
-    val isButtonEnabled = title.isNotEmpty() && description.isNotEmpty()
+    var title by rememberSaveable(taskToEdit){mutableStateOf(taskToEdit?.title?:"")}
+    var description by rememberSaveable(taskToEdit){mutableStateOf(taskToEdit?.description?:"")}
+    val isButtonEnabled = title.isNotEmpty()
 
+    //New To-Do changes to Edit To-Do
+    val isTaskBeingEdited = taskToEdit != null
+    val headerText = if (isTaskBeingEdited) "Edit To-Do" else "New To-Do"
+    val buttonText = if (isTaskBeingEdited) "Save changes" else "Add item"
            Surface(
             modifier = Modifier
                 .fillMaxSize()
@@ -91,7 +96,7 @@ fun EnterToDoDetails(viewModel: TaskViewModel, dismissBottomSheet: () -> Unit) {
                         color = Color.Blue)
 
                     Text(
-                        "New To-Do",
+                        headerText,
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier
                             .align(alignment = Alignment.Center)
@@ -119,7 +124,16 @@ fun EnterToDoDetails(viewModel: TaskViewModel, dismissBottomSheet: () -> Unit) {
                     )
                 )
                 Button(onClick = {
+                    if(isTaskBeingEdited){
+                        val updatedTask = taskToEdit.copy(
+                            title = title,
+                            description = description
+                        )
+                        viewModel.onTaskUpdated(updatedTask)
+                    }else{
                     viewModel.addTask(title, description)
+                    }
+                    //Clear input after creating or updating task details
                     title = ""
                     description=""
                     dismissBottomSheet()
@@ -128,7 +142,7 @@ fun EnterToDoDetails(viewModel: TaskViewModel, dismissBottomSheet: () -> Unit) {
                     disabledContentColor = Color.LightGray
                 )){
 
-                    Text("Add item")
+                    Text(buttonText)
                 }
             }
         }

@@ -19,11 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
+import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 //https://developer.android.com/develop/ui/compose/components/bottom-sheets-partial
-fun BottomSheet(taskViewModel: TaskViewModel = hiltViewModel(), onDismiss: () -> Unit) {
+fun BottomSheet(taskToEdit: Task? = null, taskViewModel: TaskViewModel = hiltViewModel(), onDismiss: () -> Unit) {
     var showBottomSheet by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false,
@@ -41,6 +42,7 @@ fun BottomSheet(taskViewModel: TaskViewModel = hiltViewModel(), onDismiss: () ->
             ) {
                 EnterToDoDetails(
                     dismissBottomSheet = onDismiss,
+                    taskToEdit = taskToEdit,
                     viewModel = taskViewModel
                 )
         }
