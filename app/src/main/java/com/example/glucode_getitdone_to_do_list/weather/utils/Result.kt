@@ -1,4 +1,4 @@
-package com.example.glucode_getitdone_to_do_list.tasks.data.ytutils
+package com.example.glucode_getitdone_to_do_list.weather.utils
 
 sealed class Result<out T> {
     data class Success<out T>(val data: T) : Result<T>()

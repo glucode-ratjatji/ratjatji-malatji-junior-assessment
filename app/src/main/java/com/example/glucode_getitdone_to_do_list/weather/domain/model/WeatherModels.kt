@@ -1,4 +1,4 @@
-package com.example.glucode_getitdone_to_do_list.tasks.data.ytapi
+package com.example.glucode_getitdone_to_do_list.weather.domain.model
 
 data class WeatherResponse(
     val location: Location,
