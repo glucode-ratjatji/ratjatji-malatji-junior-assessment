@@ -1,5 +1,7 @@
 package com.example.glucode_getitdone_to_do_list.tasks.presentation.components
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Album
@@ -23,32 +25,37 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.glucode_getitdone_to_do_list.MainActivity
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ToDoTab(modifier: Modifier = Modifier) {
+fun ToDoTab(content: @Composable () -> Unit) {
     val navController = rememberNavController()
     val startDestination = Destination.ToDo
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
 
-    Scaffold(modifier = modifier) { contentPadding ->
-        PrimaryTabRow(selectedTabIndex = selectedDestination, modifier = Modifier.padding(contentPadding)) {
-            Destination.entries.forEachIndexed { index, destination ->
-                Tab(
-                    selected = selectedDestination == index,
-                    onClick = {
-                        navController.navigate(route = destination.route)
-                        selectedDestination = index
-                    },
-                    text = {
-                        Text(
-                            text = destination.label,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                )
+    Scaffold {
+        Column {
+            PrimaryTabRow(
+                selectedTabIndex = selectedDestination
+            ) {
+                Destination.entries.forEachIndexed { index, destination ->
+                    Tab(
+                        selected = selectedDestination == index,
+                        onClick = {
+                            navController.navigate(route = destination.route)
+                            selectedDestination = index
+                        },
+                        text = {
+                            Text(
+                                text = destination.label,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    )
+                }
             }
+            content() //AppNavHost(navController, startDestination)
         }
-        AppNavHost(navController, startDestination)
     }
 }
 enum class Destination(

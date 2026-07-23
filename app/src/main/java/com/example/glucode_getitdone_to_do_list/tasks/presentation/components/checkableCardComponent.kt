@@ -29,7 +29,7 @@ import androidx.room.util.TableInfo
 fun CheckableCardComponent(
     title: String = "This is an example of a title",
     description: String = "A description is usually a lot longer than a title so it is important that when it appears it uses more than 2 lines "){
-    Card(modifier = Modifier.fillMaxWidth(.9f)
+    Card(modifier = Modifier.fillMaxWidth()
         .padding(8.dp)) {
         var isChecked by remember { mutableStateOf(false) }
         Row(modifier = Modifier.fillMaxWidth(0.95f),
