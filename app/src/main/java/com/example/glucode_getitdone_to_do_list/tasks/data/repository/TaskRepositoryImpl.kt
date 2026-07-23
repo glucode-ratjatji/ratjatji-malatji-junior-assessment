@@ -24,4 +24,14 @@ class TaskRepositoryImpl @Inject constructor(
         taskDao.delete(task)
         return getAllTasks()
     }
+
+    override suspend fun updateTask(task: Task){
+        val entity = Task(
+            id = task.id,
+            title = task.title,
+            description = task.description,
+            isComplete = task.isComplete,
+        )
+        taskDao.updateTask(entity)
+    }
 }

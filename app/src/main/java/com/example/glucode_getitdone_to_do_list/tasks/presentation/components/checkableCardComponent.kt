@@ -39,14 +39,15 @@ import androidx.room.util.TableInfo
 fun CheckableCardComponent(
     title: String = "This is an example of a title",
     description: String = "A description is usually a lot longer than a title so it is important that when it appears it uses more than 2 lines ",
-    onLongClick: () -> Unit
+    isChecked: Boolean = false,
+    onLongClick: () -> Unit,
+    onCheckedChanged: (Boolean) -> Unit
 ){
     Card(
         modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)
     ) {
-        var isChecked by remember { mutableStateOf(false) }
         Row(
             modifier = Modifier
                 .fillMaxWidth(0.95f)
@@ -59,7 +60,7 @@ fun CheckableCardComponent(
                 Checkbox(
                     // set the state of checkbox.
                     checked = isChecked,
-                    onCheckedChange = { isChecked = it },
+                    onCheckedChange = { onCheckedChanged(it)},
                     modifier = Modifier.padding(8.dp),
                     enabled = true,
                     colors = CheckboxDefaults.colors(

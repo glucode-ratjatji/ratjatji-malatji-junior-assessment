@@ -100,15 +100,23 @@ fun MainDashboardScreen(navController: NavController,
                 ) {
                     // loop through every task in your Room database
                     items(taskList) { task ->
-                        Column() {
-                            CheckableCardComponent(
-                                title = task.title,
-                                description = task.description,
-                                onLongClick = {
-                                    taskToDelete = task
-                                }
-                            )
-                        }
+                        //if (task.isComplete) {
+                            Column() {
+                                CheckableCardComponent(
+                                    title = task.title,
+                                    description = task.description,
+                                    isChecked = task.isComplete,
+                                    onCheckedChanged = { isChecked ->
+                                        // Tell the ViewModel the user changed the state!
+                                        taskViewModel.onTaskUpdated(task, isChecked)
+                                    },
+                                    onLongClick = {
+                                        taskToDelete = task
+                                    }
+
+                                )
+                            }
+                       // }
                     }
                 }
 

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,8 +19,11 @@ interface TaskDao {
     fun findByTitle(title: String): Task
 
     @Insert
-     fun insertAll(vararg task: Task)
+    suspend fun insertAll(vararg task: Task)
 
     @Delete
-     fun delete(task: Task)
+    suspend fun delete(task: Task)
+
+    @Update
+    suspend fun updateTask(task:Task)
 }

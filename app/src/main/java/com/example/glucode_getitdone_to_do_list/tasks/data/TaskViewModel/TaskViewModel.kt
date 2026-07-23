@@ -45,4 +45,15 @@ class TaskViewModel @Inject constructor(
             repository.deleteTask(task)
         }
     }
+
+    fun onTaskUpdated(task: Task, isChecked: Boolean){//newTitle: String, newDescription: String, ){
+        viewModelScope.launch{
+            val updatedTask = task.copy(
+//                title = newTitle,
+//                description = newDescription,
+                isComplete = isChecked
+            )
+            repository.updateTask(updatedTask)
+        }
+    }
 }
