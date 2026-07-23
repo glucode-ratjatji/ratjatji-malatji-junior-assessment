@@ -22,18 +22,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytWeatherViewModel.WeatherViewModel
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.WeatherResponse
+import com.example.glucode_getitdone_to_do_list.weather.presentation.WeatherViewModel.WeatherViewModel
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.WeatherResponse
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.BottomSheet
-import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.EnterToDoDetails
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.FABContent
-import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.WeatherCardComponent
+import com.example.glucode_getitdone_to_do_list.weather.presentation.components.WeatherCardComponent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

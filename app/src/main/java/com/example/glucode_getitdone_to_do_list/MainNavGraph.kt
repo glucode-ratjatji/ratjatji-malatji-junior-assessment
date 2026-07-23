@@ -9,9 +9,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytWeatherViewModel.WeatherViewModel
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.RetroFitInstance
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytrepository.WeatherRepository
+import com.example.glucode_getitdone_to_do_list.ToDoWeatherScreens
+import com.example.glucode_getitdone_to_do_list.weather.presentation.WeatherViewModel.WeatherViewModel
+import com.example.glucode_getitdone_to_do_list.weather.api.RetroFitInstance
+import com.example.glucode_getitdone_to_do_list.weather.domain.repository.WeatherRepository
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.MainDashboardScreen.MainDashboardScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
