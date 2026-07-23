@@ -8,4 +8,5 @@ interface ITaskRepository {
     fun getAllTasks(): Flow<List<Task>>
     suspend fun insertTask(newTask: Task): Flow<List<Task>>
     suspend fun deleteTask(task: Task): Flow<List<Task>>
+    suspend fun updateTask(task: Task)
 }
