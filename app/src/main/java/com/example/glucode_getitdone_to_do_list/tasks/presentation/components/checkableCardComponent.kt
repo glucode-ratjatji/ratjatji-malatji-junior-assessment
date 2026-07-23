@@ -41,7 +41,9 @@ fun CheckableCardComponent(
     description: String = "A description is usually a lot longer than a title so it is important that when it appears it uses more than 2 lines ",
     isChecked: Boolean = false,
     onLongClick: () -> Unit,
-    onCheckedChanged: (Boolean) -> Unit
+    onEdit:()-> Unit,
+    onCheckedChanged: (Boolean) -> Unit,
+    onTap:() -> Unit
 ){
     Card(
         modifier = Modifier
@@ -52,7 +54,7 @@ fun CheckableCardComponent(
             modifier = Modifier
                 .fillMaxWidth(0.95f)
                 .combinedClickable(
-                    onClick ={},
+                    onClick ={onTap()},
                     onLongClick = { onLongClick() }
                 ),
             verticalAlignment = Alignment.CenterVertically) {

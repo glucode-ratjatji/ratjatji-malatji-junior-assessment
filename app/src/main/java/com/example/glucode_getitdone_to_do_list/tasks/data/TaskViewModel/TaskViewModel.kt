@@ -46,13 +46,8 @@ class TaskViewModel @Inject constructor(
         }
     }
 
-    fun onTaskUpdated(task: Task, isChecked: Boolean){//newTitle: String, newDescription: String, ){
+    fun onTaskUpdated(updatedTask: Task){
         viewModelScope.launch{
-            val updatedTask = task.copy(
-//                title = newTitle,
-//                description = newDescription,
-                isComplete = isChecked
-            )
             repository.updateTask(updatedTask)
         }
     }
