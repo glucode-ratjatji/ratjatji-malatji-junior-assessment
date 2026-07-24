@@ -97,7 +97,7 @@ fun WeatherCardComponent(
                                     color = Color.White
                                 )
                                 Text(
-                                    text = data.current.temp_c.toString(),
+                                    text = data.current.condition.text,
                                     color = Color.White // TODO: change to condition
                                 )
                             }

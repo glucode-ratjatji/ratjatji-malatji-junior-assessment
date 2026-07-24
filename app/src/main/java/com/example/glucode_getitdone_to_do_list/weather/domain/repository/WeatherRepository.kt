@@ -1,16 +1,16 @@
 package com.example.glucode_getitdone_to_do_list.weather.domain.repository
 
+import com.example.glucode_getitdone_to_do_list.BuildConfig
 import com.example.glucode_getitdone_to_do_list.weather.api.WeatherApiService
 import com.example.glucode_getitdone_to_do_list.weather.domain.model.WeatherResponse
-import com.example.glucode_getitdone_to_do_list.weather.utils.Result
 import retrofit2.Response
-
+import com.example.glucode_getitdone_to_do_list.weather.utils.Result
 class WeatherRepository(private val apiService: WeatherApiService) {
 
-    suspend fun getWeatherData(location: String): Result<WeatherResponse> {
+    suspend fun getWeatherData(location: String): Result<WeatherResponse>{
         return try{
 val response: Response<WeatherResponse> = apiService.getCurrentWeather(
-    apiKey = "764928825f1c4aad86360913261507", //TODO MOVE to env
+    apiKey = BuildConfig.MY_API_KEY,
     location = location)
             if(response.isSuccessful){
                 val weatherResponse = response.body()

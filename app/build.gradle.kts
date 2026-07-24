@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,6 +9,11 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
 android {
     namespace = "com.example.glucode_getitdone_to_do_list"
     compileSdk {
@@ -23,6 +30,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val apiKey = localProperties.getProperty("MY_API_KEY") ?: "\"\""
+        buildConfigField("String", "MY_API_KEY", apiKey)
     }
 
     buildTypes {
@@ -38,10 +48,21 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+
+    // MockK for creating fake objects
+    testImplementation("io.mockk:mockk:1.13.8")
+
+    // Coroutines testing (you might already have this from the DAO tests)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Core testing architecture for ViewModels (LiveData/StateFlow)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
     implementation(platform(libs.androidx.compose.bom))
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0")
