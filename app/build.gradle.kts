@@ -53,6 +53,16 @@ android {
 }
 
 dependencies {
+
+    // MockK for creating fake objects
+    testImplementation("io.mockk:mockk:1.13.8")
+
+    // Coroutines testing (you might already have this from the DAO tests)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Core testing architecture for ViewModels (LiveData/StateFlow)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
     implementation(platform(libs.androidx.compose.bom))
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0")
