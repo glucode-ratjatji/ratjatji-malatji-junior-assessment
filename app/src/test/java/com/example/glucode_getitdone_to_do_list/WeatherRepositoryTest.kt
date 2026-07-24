@@ -1,6 +1,6 @@
 import com.example.glucode_getitdone_to_do_list.getMockWeatherResponse
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.WeatherApiService
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytrepository.WeatherRepository
+import com.example.glucode_getitdone_to_do_list.weather.api.WeatherApiService
+import com.example.glucode_getitdone_to_do_list.weather.domain.repository.WeatherRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -8,7 +8,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import retrofit2.Response
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytutils.Result
+import com.example.glucode_getitdone_to_do_list.weather.utils.Result
 
 class WeatherRepositoryTest {
 

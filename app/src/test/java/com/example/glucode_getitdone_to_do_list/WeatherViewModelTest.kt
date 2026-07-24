@@ -1,7 +1,7 @@
 package com.example.glucode_getitdone_to_do_list
 
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytWeatherViewModel.WeatherViewModel
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytrepository.WeatherRepository
+import com.example.glucode_getitdone_to_do_list.weather.domain.repository.WeatherRepository
+import com.example.glucode_getitdone_to_do_list.weather.presentation.WeatherViewModel.WeatherViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytutils.Result
+import com.example.glucode_getitdone_to_do_list.weather.utils.Result
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class WeatherViewModelTest {
