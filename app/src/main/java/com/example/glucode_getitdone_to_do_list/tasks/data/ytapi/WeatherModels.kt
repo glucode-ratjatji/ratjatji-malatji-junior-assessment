@@ -13,7 +13,8 @@ data class Location(
 )
 
 data class Current(
-    val temp_c: Double
+    val temp_c: Double,
+    val condition: Condition
 )
 
 data class Condition(
