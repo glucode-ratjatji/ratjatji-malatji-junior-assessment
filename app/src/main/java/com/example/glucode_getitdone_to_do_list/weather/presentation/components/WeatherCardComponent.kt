@@ -1,7 +1,6 @@
-package com.example.glucode_getitdone_to_do_list.tasks.presentation.components
+package com.example.glucode_getitdone_to_do_list.weather.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -23,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.glucode_getitdone_to_do_list.R
 import com.example.glucode_getitdone_to_do_list.weather.domain.model.WeatherResponse
-import com.example.glucode_getitdone_to_do_list.weather.presentation.components.WeatherCardSkeleton
 
 @Composable
 fun WeatherCardComponent(
@@ -66,7 +63,7 @@ fun WeatherCardComponent(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.matchParentSize()
                 )
-                // 3. Top Layer: The Content
+                // Top Layer: The current tep, location and condition
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {

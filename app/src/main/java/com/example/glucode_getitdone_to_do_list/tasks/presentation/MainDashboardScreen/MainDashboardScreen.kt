@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,10 +36,9 @@ import androidx.navigation.NavController
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.BottomSheet
-import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.CheckableCardComponent
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.FABContent
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.ToDoTab
-import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.WeatherCardComponent
+import com.example.glucode_getitdone_to_do_list.weather.presentation.components.WeatherCardComponent
 import com.example.glucode_getitdone_to_do_list.weather.domain.model.WeatherResponse
 import com.example.glucode_getitdone_to_do_list.weather.presentation.WeatherViewModel.WeatherViewModel
 
