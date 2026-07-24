@@ -40,7 +40,7 @@ fun WeatherCardComponent(
             ) {
                 // TODO: Make this dynamic based on data.current.condition.code
                 Image(
-                    painter = painterResource(id = R.drawable.overcast_condition),
+                    painter = painterResource(id = R.drawable.sunny_condition),
                     contentDescription = "Weather Background",
                     contentScale = ContentScale.Crop, // Crop ensures the image completely fills the card bounds
                     modifier = Modifier.matchParentSize() // Matches the size of the parent Box
