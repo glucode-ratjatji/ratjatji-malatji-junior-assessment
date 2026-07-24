@@ -3,7 +3,7 @@ package com.example.glucode_getitdone_to_do_list.tasks.data.repository
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.TaskDao
 import com.example.glucode_getitdone_to_do_list.tasks.domain.repository.ITaskRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class TaskRepositoryImpl @Inject constructor(

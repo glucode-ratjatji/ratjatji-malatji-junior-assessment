@@ -1,6 +1,7 @@
 package com.example.glucode_getitdone_to_do_list.tasks.presentation.MainDashboardScreen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
@@ -50,13 +52,14 @@ fun MainDashboardScreen(navController: NavController,
                         viewModel: WeatherViewModel,
                         taskViewModel: TaskViewModel = hiltViewModel()
 ) {
-    val taskList by taskViewModel.tasks.collectAsState()
+    val taskList by taskViewModel.visibleTasks.collectAsState()
     var taskToDelete by remember { mutableStateOf<Task?>(null) }
     var taskToUpdate by remember { mutableStateOf<Task?>(null) }
     val weatherData by viewModel.weatherData.collectAsState<WeatherResponse?>()
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.error.collectAsState()
     var showBottomSheet by remember { mutableStateOf(false) }
+    val currentFilter by taskViewModel.currentFilter.collectAsStateWithLifecycle()
 
     // 2. Trigger the fetch instantly on launch
     LaunchedEffect(Unit) {
@@ -84,7 +87,7 @@ fun MainDashboardScreen(navController: NavController,
                 isLoading = isLoading,
                 error = error
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp).background(Color.Black))
             if (showBottomSheet) {
                 BottomSheet(
                     taskToEdit = taskToUpdate,
@@ -93,35 +96,23 @@ fun MainDashboardScreen(navController: NavController,
                 )
             }
 
-            ToDoTab() {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // loop through every task in your db that are NOT complete
-                    items(taskList) { task ->
-      //                  if (!task.isComplete) {
-                            Column() {
-                                CheckableCardComponent(
-                                    title = task.title,
-                                    description = task.description,
-                                    isChecked = task.isComplete,
-                                    onCheckedChanged = { newIsCheckedStatus ->
-                                        val toggledTask = task.copy(isComplete = newIsCheckedStatus)
-                                        taskViewModel.onTaskUpdated(toggledTask)
-                                    },
-                                    onLongClick = {
-                                        taskToDelete = task
-                                    },
-                                    onTap = { showBottomSheet = true ; taskToUpdate = task},
-                                    onEdit = {}
-                                )
-                            }
-                     //   }
-                    }
+            ToDoTab(taskViewModel,
+                onTaskTap = {
+                    clickedTask ->
+                taskToUpdate = clickedTask
+                showBottomSheet = true  },
+
+                onTaskLongClick = {
+                    heldTask ->
+                taskToDelete = heldTask
+                                  },
+
+                onCheckedChanged = {
+//                    newIsCheckedStatus ->
+//                    val toggledTask = task.copy(isComplete = newIsCheckedStatus)
+//                    taskViewModel.onTaskUpdated(toggledTask)
                 }
+            )
 
                 taskToDelete?.let {
                     BasicAlertDialog(
@@ -162,7 +153,6 @@ fun MainDashboardScreen(navController: NavController,
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-
             }
         }
-    }}
+    }

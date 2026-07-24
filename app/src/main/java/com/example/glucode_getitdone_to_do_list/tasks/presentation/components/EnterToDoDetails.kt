@@ -60,7 +60,7 @@ import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 )
 @Composable
 fun EnterToDoDetails(viewModel: TaskViewModel, taskToEdit: Task? = null, dismissBottomSheet: () -> Unit) {
-    val items by viewModel.tasks.collectAsStateWithLifecycle()
+    val items by viewModel.visibleTasks.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
     var title by rememberSaveable(taskToEdit){mutableStateOf(taskToEdit?.title?:"")}
     var description by rememberSaveable(taskToEdit){mutableStateOf(taskToEdit?.description?:"")}
