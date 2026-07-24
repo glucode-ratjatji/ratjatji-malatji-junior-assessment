@@ -45,4 +45,10 @@ class TaskViewModel @Inject constructor(
             repository.deleteTask(task)
         }
     }
+
+    fun onTaskUpdated(updatedTask: Task){
+        viewModelScope.launch{
+            repository.updateTask(updatedTask)
+        }
+    }
 }

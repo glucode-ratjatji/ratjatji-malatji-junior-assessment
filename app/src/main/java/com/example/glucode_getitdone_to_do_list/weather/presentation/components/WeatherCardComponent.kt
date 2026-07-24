@@ -61,7 +61,7 @@ fun WeatherCardComponent(
                 // 1. Bottom Layer: The Image
                 // TODO: Make this dynamic based on data.current.condition.code
                 Image(
-                    painter = painterResource(id = R.drawable.light_rain_condition),
+                    painter = painterResource(id = R.drawable.sunny_condition),
                     contentDescription = "Weather Background",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.matchParentSize()

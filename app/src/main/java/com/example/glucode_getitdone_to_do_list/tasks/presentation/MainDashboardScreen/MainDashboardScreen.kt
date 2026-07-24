@@ -104,20 +104,20 @@ fun MainDashboardScreen(navController: NavController,
                     items(taskList) { task ->
       //                  if (!task.isComplete) {
                             Column() {
-//                                CheckableCardComponent(
-//                                    title = task.title,
-//                                    description = task.description,
-//                                    isChecked = task.isComplete,
-//                                    onCheckedChanged = { newIsCheckedStatus ->
-//                                        val toggledTask = task.copy(isComplete = newIsCheckedStatus)
-//                                        taskViewModel.onTaskUpdated(toggledTask)
-//                                    },
-//                                    onLongClick = {
-//                                        taskToDelete = task
-//                                    },
-//                                    onTap = { showBottomSheet = true ; taskToUpdate = task},
-//                                    onEdit = {}
-//                                )
+                                CheckableCardComponent(
+                                    title = task.title,
+                                    description = task.description,
+                                    isChecked = task.isComplete,
+                                    onCheckedChanged = { newIsCheckedStatus ->
+                                        val toggledTask = task.copy(isComplete = newIsCheckedStatus)
+                                        taskViewModel.onTaskUpdated(toggledTask)
+                                    },
+                                    onLongClick = {
+                                        taskToDelete = task
+                                    },
+                                    onTap = { showBottomSheet = true ; taskToUpdate = task},
+                                    onEdit = {}
+                                )
                             }
                      //   }
                     }
@@ -154,7 +154,7 @@ fun MainDashboardScreen(navController: NavController,
                                             taskToDelete = null
                                         }
                                     ) {
-                                        Text("Delete", color = Color.Red)
+                                        Text("Confirm", color = Color.Red)
                                     }
                                 }
                             }
