@@ -67,8 +67,8 @@ class TaskViewModel @Inject constructor(
         }
     }
 
-    fun onTaskUpdated(updatedTask: Task){
-        viewModelScope.launch{
+    fun onTaskUpdated(updatedTask: Task) {
+        viewModelScope.launch {
             repository.updateTask(updatedTask)
         }
     }
@@ -76,5 +76,4 @@ class TaskViewModel @Inject constructor(
     fun updateFilter(newFilter: TaskFilter) {
         _currentFilter.value = newFilter
     }
-
 }

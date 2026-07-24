@@ -1,12 +1,12 @@
 package com.example.glucode_getitdone_to_do_list
 
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.Astronomy
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.Condition
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.Current
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.Forecast
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.ForecastDay
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.Location
-import com.example.glucode_getitdone_to_do_list.tasks.data.ytapi.WeatherResponse
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.Astronomy
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.Condition
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.Current
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.Forecast
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.ForecastDay
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.Location
+import com.example.glucode_getitdone_to_do_list.weather.domain.model.WeatherResponse
 
 fun getMockWeatherResponse(): WeatherResponse {
     return WeatherResponse(
