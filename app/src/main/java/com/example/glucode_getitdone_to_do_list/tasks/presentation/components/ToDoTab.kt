@@ -42,10 +42,8 @@ fun ToDoTab(taskViewModel: TaskViewModel,
     val currentFilter by taskViewModel.currentFilter.collectAsStateWithLifecycle()
     val visibleTasks by taskViewModel.visibleTasks.collectAsStateWithLifecycle()
 
-    Scaffold { paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues)) {
-
-
+    Scaffold {
+        Column {
             PrimaryTabRow(
                 selectedTabIndex = currentFilter.ordinal
             ) {
@@ -74,7 +72,7 @@ fun ToDoTab(taskViewModel: TaskViewModel,
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "There are no tasks that are ${currentFilter.label.lowercase()}",
+                        text = "There are no tasks that are under ${currentFilter.label.lowercase()}",
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
