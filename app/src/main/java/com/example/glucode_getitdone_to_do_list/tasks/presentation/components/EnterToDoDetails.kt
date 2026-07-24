@@ -72,13 +72,13 @@ fun EnterToDoDetails(viewModel: TaskViewModel, taskToEdit: Task? = null, dismiss
     val buttonText = if (isTaskBeingEdited) "Save changes" else "Add item"
            Surface(
             modifier = Modifier
+                .background(Color.White)
                 .fillMaxSize()
                 .padding(horizontal = 12.dp)
 
         ) {
             Column(
                 modifier = Modifier
-                    .background(Color.White)
                     .fillMaxWidth(0.8f)
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,

@@ -6,7 +6,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApiService {
-    //http://api.weatherapi.com/v1/forecast.json?key=764928825f1c4aad86360913261507&q=Sandton&aqi=no
+    //http://api.weatherapi.com/v1/
+    // forecast.json
+    // ?key=&
+    // q=Sandton
+    // &
+    // aqi=no
 
     @GET("forecast.json")
     suspend fun getCurrentWeather(

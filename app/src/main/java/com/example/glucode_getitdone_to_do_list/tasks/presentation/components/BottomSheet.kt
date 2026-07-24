@@ -1,5 +1,6 @@
 package com.example.glucode_getitdone_to_do_list.tasks.presentation.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
@@ -36,7 +38,7 @@ fun BottomSheet(taskToEdit: Task? = null, taskViewModel: TaskViewModel = hiltVie
     ) {
         if (showBottomSheet) {
             ModalBottomSheet(
-                //modifier = Modifier.fillMaxHeight(),
+
                 sheetState = sheetState,
                 onDismissRequest = onDismiss
             ) {
