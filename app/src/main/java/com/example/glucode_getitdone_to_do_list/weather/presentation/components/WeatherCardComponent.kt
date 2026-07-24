@@ -1,7 +1,7 @@
 package com.example.glucode_getitdone_to_do_list.tasks.presentation.components
 
-
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.glucode_getitdone_to_do_list.R
 import com.example.glucode_getitdone_to_do_list.weather.domain.model.WeatherResponse
+import com.example.glucode_getitdone_to_do_list.weather.presentation.components.WeatherCardSkeleton
 
 @Composable
 fun WeatherCardComponent(
@@ -29,22 +31,42 @@ fun WeatherCardComponent(
     isLoading: Boolean,
     error: String?
 ) {
-    weatherResponse?.let { data ->
+    //SkeletonCard appears if weather data is loading
+    if (isLoading) {
+        WeatherCardSkeleton()
+    return
+}
+
+    if (error != null) {
         Card(
             modifier = Modifier.fillMaxWidth(0.9f),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
-            //Box to enable layering
+            Box(modifier = Modifier.padding(16.dp)) {
+                Text(text = "Error: $error", color = Color.Red)
+            }
+        }
+        return
+    }
+
+    weatherResponse?.let { data ->
+        Card(
+            modifier = Modifier.fillMaxWidth(0.9f),
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        ) {
+            // Box to enable layering
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
+                // 1. Bottom Layer: The Image
                 // TODO: Make this dynamic based on data.current.condition.code
                 Image(
-                    painter = painterResource(id = R.drawable.overcast_condition),
+                    painter = painterResource(id = R.drawable.light_rain_condition),
                     contentDescription = "Weather Background",
-                    contentScale = ContentScale.Crop, // Crop ensures the image completely fills the card bounds
-                    modifier = Modifier.matchParentSize() // Matches the size of the parent Box
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.matchParentSize()
                 )
+                // 3. Top Layer: The Content
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -54,14 +76,7 @@ fun WeatherCardComponent(
                             .fillMaxWidth()
                             .padding(12.dp)
                     ) {
-                        if (isLoading) {
-                            Text("Fetching weather...") // TODO Add a skeleton card
-                            return@Column
-                        }
-                        if (error != null) {
-                            Text("Error: $error", color = Color.Red)
-                            return@Column
-                        }
+
                         // Top section: Temp, City & condition
                         Row(
                             modifier = Modifier
@@ -86,7 +101,7 @@ fun WeatherCardComponent(
                                 )
                                 Text(
                                     text = data.current.temp_c.toString(),
-                                    color = Color.White// TODO:  change to condition
+                                    color = Color.White // TODO: change to condition
                                 )
                             }
                         }
@@ -100,11 +115,10 @@ fun WeatherCardComponent(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding( top =12.dp, start = 12.dp, end = 12.dp, bottom = 8.dp)
+                            .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 8.dp)
                     ) {
                         Row(
-                            modifier = Modifier.fillMaxWidth()
-                            ,
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text("Sunrise", style = MaterialTheme.typography.bodyLarge)
