@@ -1,7 +1,7 @@
 # TODO & Weather App
 
 ## Overview
-This project is a native Android application that allows users to manage their daily tasks while providing contextual weather information. Users can track their pending and completed tasks, alongside viewing the current temperature, sunrise, and sunset times to better plan their activities. 
+This project is a native Android application that allows users to manage their daily tasks while providing contextual weather information. Users can track their pending and completed tasks, alongside viewing the current temperature, sunrise, and sunset times to better plan their activities.. 
 
 ## Tech Stack
 * **Language:** Kotlin
