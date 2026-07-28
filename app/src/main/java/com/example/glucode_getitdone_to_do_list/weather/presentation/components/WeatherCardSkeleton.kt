@@ -59,7 +59,7 @@ fun WeatherCardSkeleton() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 12.dp, bottom = 8.dp)
+                   // .padding(top = 12.dp, bottom = 8.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
