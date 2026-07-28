@@ -55,95 +55,107 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 
-@SuppressLint("UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter",
+@SuppressLint(
+    "UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter",
     "SuspiciousIndentation"
 )
 @Composable
-fun EnterToDoDetails(viewModel: TaskViewModel, taskToEdit: Task? = null, dismissBottomSheet: () -> Unit) {
+fun EnterToDoDetails(
+    viewModel: TaskViewModel,
+    taskToEdit: Task? = null,
+    dismissBottomSheet: () -> Unit
+) {
     val items by viewModel.visibleTasks.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
-    var title by rememberSaveable(taskToEdit){mutableStateOf(taskToEdit?.title?:"")}
-    var description by rememberSaveable(taskToEdit){mutableStateOf(taskToEdit?.description?:"")}
+    var title by rememberSaveable(taskToEdit) { mutableStateOf(taskToEdit?.title ?: "") }
+    var description by rememberSaveable(taskToEdit) {
+        mutableStateOf(
+            taskToEdit?.description ?: ""
+        )
+    }
     val isButtonEnabled = title.isNotEmpty()
 
     //New To-Do changes to Edit To-Do
     val isTaskBeingEdited = taskToEdit != null
     val headerText = if (isTaskBeingEdited) "Edit To-Do" else "New To-Do"
     val buttonText = if (isTaskBeingEdited) "Save changes" else "Add item"
-           Surface(
+    Surface(
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxSize()
+            .padding(horizontal = 12.dp)
+
+    ) {
+        Column(
             modifier = Modifier
-                .background(Color.White)
-                .fillMaxSize()
-                .padding(horizontal = 12.dp)
-
+                .fillMaxWidth(0.8f)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
 
-                //Row with cancel, heading and save
-                Box(modifier = Modifier.fillMaxWidth()){
-                    Text(
-                        "Cancel",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier
-                            .clickable(onClick = dismissBottomSheet)
-                            .align(alignment = Alignment.CenterStart),
-                        color = Color.Blue)
+            //Row with cancel, heading and save
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    "Cancel",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .clickable(onClick = dismissBottomSheet)
+                        .align(alignment = Alignment.CenterStart),
+                    color = Color.Blue
+                )
 
-                    Text(
-                        headerText,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier
-                            .align(alignment = Alignment.Center)
-                    )
-                }
-                OutlinedTextField(
-                    modifier = Modifier.width(300.dp),
-                    value = title,
-                    onValueChange = {title = it},
-                    label = { Text("Title") },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    keyboardActions = KeyboardActions(
-                        onNext = { focusManager.moveFocus(FocusDirection.Next) }
-                    )
+                Text(
+                    headerText,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .align(alignment = Alignment.Center)
                 )
-                OutlinedTextField(
-                    modifier = Modifier.width(300.dp),
-                    value = description,
-                    onValueChange = {description = it},
-                    label = { Text("Description") },
-                    minLines = 2,
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(
-                        onDone = { focusManager.clearFocus() }
-                    )
+            }
+            OutlinedTextField(
+                modifier = Modifier.width(300.dp),
+                value = title,
+                onValueChange = { title = it },
+                label = { Text("Title") },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Next) }
                 )
-                Button(onClick = {
-                    if(isTaskBeingEdited){
+            )
+            OutlinedTextField(
+                modifier = Modifier.width(300.dp),
+                value = description,
+                onValueChange = { description = it },
+                label = { Text("Description") },
+                minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
+                )
+            )
+            Button(
+                onClick = {
+                    if (isTaskBeingEdited) {
                         val updatedTask = taskToEdit.copy(
                             title = title,
                             description = description
                         )
                         viewModel.onTaskUpdated(updatedTask)
-                    }else{
-                    viewModel.addTask(title, description)
+                    } else {
+                        viewModel.addTask(title, description)
                     }
                     //Clear input after creating or updating task details
                     title = ""
-                    description=""
+                    description = ""
                     dismissBottomSheet()
                 }, enabled = isButtonEnabled, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue,
                     disabledContentColor = Color.LightGray
-                )){
+                )
+            ) {
 
-                    Text(buttonText)
-                }
+                Text(buttonText)
             }
         }
     }
+}

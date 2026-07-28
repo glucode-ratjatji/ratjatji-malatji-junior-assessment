@@ -27,14 +27,6 @@ class TaskViewModel @Inject constructor(
     private val _currentFilter = MutableStateFlow(TaskFilter.TO_DO)
     val currentFilter: StateFlow<TaskFilter> = _currentFilter.asStateFlow()
 
-//    // The ViewModel collects the data from the repository and prepares it for Compose
-//    val tasks = repository.getAllTasks()
-//        .stateIn(
-//            viewModelScope,
-//            SharingStarted.WhileSubscribed(5000),
-//            emptyList()
-//        )
-
     // 2. Writing data (Triggered by the UI)
     @OptIn(ExperimentalUuidApi::class)
     fun addTask(title: String, description: String) {
