@@ -46,6 +46,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -53,6 +54,10 @@ android {
 }
 
 dependencies {
+    //Widget dependencies
+    implementation("androidx.glance:glance-appwidget:1.1.1")
+    implementation("androidx.glance:glance-material3:1.1.1")
+
 
     // MockK for creating fake objects
     testImplementation("io.mockk:mockk:1.13.8")
