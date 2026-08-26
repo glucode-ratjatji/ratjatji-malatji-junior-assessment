@@ -6,12 +6,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApiService {
-    //http://api.weatherapi.com/v1/
+    // http://api.weatherapi.com/v1/
     // forecast.json
-    // ?key=&
-    // q=Sandton
-    // &
-    // aqi=no
+    // ?key=TOP_SECRET
+    // &q=Sandton
+    // &aqi=no
 
     @GET("forecast.json")
     suspend fun getCurrentWeather(
@@ -21,5 +20,4 @@ interface WeatherApiService {
         @Query("aqi") airQuality: String = "no",
         @Query("alerts") alerts: String = "no",
     ): Response<WeatherResponse>
-
 }

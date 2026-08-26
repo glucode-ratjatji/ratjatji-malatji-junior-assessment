@@ -15,31 +15,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlin.uuid.ExperimentalUuidApi
 
-@HiltViewModel // This tells Hilt to manage this ViewModel
+@HiltViewModel
 class TaskViewModel @Inject constructor(
     private val repository: ITaskRepository,
     private val filterTaskUseCase: FilterTaskUseCase = FilterTaskUseCase()
 ) : ViewModel() {
 
-    // 1. Hold the current filter state
     private val _currentFilter = MutableStateFlow(TaskFilter.TO_DO)
     val currentFilter: StateFlow<TaskFilter> = _currentFilter.asStateFlow()
-
-    // 2. Writing data (Triggered by the UI)
-    @OptIn(ExperimentalUuidApi::class)
-    fun addTask(title: String, description: String) {
-        // viewModelScope.launch starts a background thread so the UI doesn't freeze
-        viewModelScope.launch {
-            val newTask = Task(
-                title = title,
-                description = description,
-                isComplete = false
-            )
-            repository.insertTask(newTask)
-        }
-    }
 
     val visibleTasks: StateFlow<List<Task>> = combine(
         repository.getAllTasks(),
@@ -52,7 +36,17 @@ class TaskViewModel @Inject constructor(
         initialValue = emptyList()
     )
 
-    // 3. Deleting data (Triggered by a swipe or button in the UI)
+    fun addTask(title: String, description: String) {
+        viewModelScope.launch {
+            val newTask = Task(
+                title = title,
+                description = description,
+                isComplete = false
+            )
+            repository.insertTask(newTask)
+        }
+    }
+
     fun deleteTask(task: Task) {
         viewModelScope.launch {
             repository.deleteTask(task)
