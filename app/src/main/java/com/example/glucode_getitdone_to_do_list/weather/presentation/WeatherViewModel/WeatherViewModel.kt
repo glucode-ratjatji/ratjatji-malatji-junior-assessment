@@ -36,5 +36,4 @@ class WeatherViewModel(private val repository: WeatherRepository): ViewModel() {
             _isLoading.value = false
         }
     }
-
 }
