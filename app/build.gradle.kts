@@ -53,7 +53,7 @@ android {
 }
 
 dependencies {
-
+    implementation("com.google.android.gms:play-services-location:21.4.0")
     // MockK for creating fake objects
     testImplementation("io.mockk:mockk:1.13.8")
 
