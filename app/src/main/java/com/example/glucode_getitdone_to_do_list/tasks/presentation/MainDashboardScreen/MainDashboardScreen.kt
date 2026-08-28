@@ -1,6 +1,7 @@
 package com.example.glucode_getitdone_to_do_list.tasks.presentation.MainDashboardScreen
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -29,10 +31,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.glucode_getitdone_to_do_list.location.LocationService
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 import com.example.glucode_getitdone_to_do_list.tasks.presentation.components.BottomSheet
@@ -57,7 +61,7 @@ fun MainDashboardScreen(navController: NavController,
     val error by viewModel.error.collectAsState()
     var showBottomSheet by remember { mutableStateOf(false) }
     val currentFilter by taskViewModel.currentFilter.collectAsStateWithLifecycle()
-
+    val context = LocalContext.current
     // 2. Trigger the fetch instantly on launch
     LaunchedEffect(Unit) {
         viewModel.fetchWeather("Sandton")
@@ -93,6 +97,23 @@ fun MainDashboardScreen(navController: NavController,
                 )
             }
 
+            Button(onClick = {
+                Intent(context, LocationService::class.java).apply {
+                    action = LocationService.ACTION_START
+                    context.startService(this)
+                }
+            }) {
+                Text(text = "start")
+            }
+
+            Button(onClick = {
+                Intent(context, LocationService::class.java).apply {
+                    action = LocationService.ACTION_STOP
+                    context.startService(this)
+                }
+            }) {
+                Text(text = "stop")
+            }
             ToDoTab(taskViewModel,
                 onTaskTap = {
                     clickedTask ->
