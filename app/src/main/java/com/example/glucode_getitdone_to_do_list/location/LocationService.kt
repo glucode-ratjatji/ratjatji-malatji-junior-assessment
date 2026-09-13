@@ -18,12 +18,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Named
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LocationService : Service() {
 
     @Inject
     @Named("location_interval")
-    var locationInterval: Long = 10_000L
+    @JvmField
+    var locationInterval: Long = 5_000L
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -42,14 +45,15 @@ class LocationService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            ACTION_START -> start()
-            ACTION_STOP -> stop()
+            ACTION_START -> startRequestingUserLocation()
+            ACTION_STOP -> stopRequestingUserLocation()
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
     @SuppressLint("ForegroundServiceType")
-    private fun start() {
+    private fun startRequestingUserLocation() {
+        //Notification Pop up
         val notification = NotificationCompat.Builder(this, "location")
             .setContentTitle("Tracking Location")
             .setContentText("Tracking: null")
@@ -59,6 +63,7 @@ class LocationService : Service() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        //locationClient updates the ContextText in Notification Pop Up w/ long & lat
         locationClient.getLocationUpdates(locationInterval)
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
@@ -74,7 +79,7 @@ class LocationService : Service() {
         startForeground(1, notification.build())
     }
 
-    private fun stop() {
+    private fun stopRequestingUserLocation() {
         stopForeground(true)
         stopSelf()
     }
