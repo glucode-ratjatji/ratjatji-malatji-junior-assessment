@@ -8,7 +8,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 object LocationConstants {
-    const val LOCATION_UPDATE_INTERVAL = 10_000L // 10 seconds
+    const val LOCATION_UPDATE_INTERVAL = 5_000L // 5 seconds
 }
 
 @Module
