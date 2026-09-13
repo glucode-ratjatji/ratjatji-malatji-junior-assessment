@@ -31,7 +31,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -62,9 +64,11 @@ fun MainDashboardScreen(navController: NavController,
     var showBottomSheet by remember { mutableStateOf(false) }
     val currentFilter by taskViewModel.currentFilter.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
+
     // 2. Trigger the fetch instantly on launch
     LaunchedEffect(Unit) {
-        viewModel.fetchWeather("Sandton")
+        viewModel.fetchWeather("Sandton") //TO_DO Use the users location
     }
     Scaffold(
         floatingActionButton = {
@@ -98,22 +102,25 @@ fun MainDashboardScreen(navController: NavController,
             }
 
             Button(onClick = {
+                haptic.performHapticFeedback(HapticFeedbackType.Confirm)
                 Intent(context, LocationService::class.java).apply {
                     action = LocationService.ACTION_START
                     context.startService(this)
                 }
             }) {
-                Text(text = "start")
+                Text(text = "start location tracking")
             }
 
             Button(onClick = {
+                haptic.performHapticFeedback(HapticFeedbackType.Reject)
                 Intent(context, LocationService::class.java).apply {
                     action = LocationService.ACTION_STOP
                     context.startService(this)
                 }
             }) {
-                Text(text = "stop")
+                Text(text = "stop location tracking")
             }
+
             ToDoTab(taskViewModel,
                 onTaskTap = {
                     clickedTask ->
