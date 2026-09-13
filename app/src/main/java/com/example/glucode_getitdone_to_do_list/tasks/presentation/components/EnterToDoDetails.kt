@@ -45,7 +45,9 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,8 +58,7 @@ import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskVie
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 
 @SuppressLint(
-    "UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter",
-    "SuspiciousIndentation"
+    "UnrememberedMutableState", "UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation"
 )
 @Composable
 fun EnterToDoDetails(
@@ -74,11 +75,12 @@ fun EnterToDoDetails(
         )
     }
     val isButtonEnabled = title.isNotEmpty()
-
+    val haptic = LocalHapticFeedback.current
     //New To-Do changes to Edit To-Do
     val isTaskBeingEdited = taskToEdit != null
     val headerText = if (isTaskBeingEdited) "Edit To-Do" else "New To-Do"
     val buttonText = if (isTaskBeingEdited) "Save changes" else "Add item"
+
     Surface(
         modifier = Modifier
             .background(Color.White)
@@ -108,8 +110,7 @@ fun EnterToDoDetails(
                 Text(
                     headerText,
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .align(alignment = Alignment.Center)
+                    modifier = Modifier.align(alignment = Alignment.Center)
                 )
             }
             OutlinedTextField(
@@ -119,9 +120,7 @@ fun EnterToDoDetails(
                 label = { Text("Title") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
-                    onNext = { focusManager.moveFocus(FocusDirection.Next) }
-                )
-            )
+                    onNext = { focusManager.moveFocus(FocusDirection.Next) }))
             OutlinedTextField(
                 modifier = Modifier.width(300.dp),
                 value = description,
@@ -135,27 +134,31 @@ fun EnterToDoDetails(
             )
             Button(
                 onClick = {
+                    if (!isButtonEnabled) {
+                        haptic.performHapticFeedback(HapticFeedbackType.Reject)
+                        return@Button
+                    }
+                    haptic.performHapticFeedback(HapticFeedbackType.Confirm)
                     if (isTaskBeingEdited) {
-                        val updatedTask = taskToEdit.copy(
-                            title = title,
-                            description = description
+                        val updatedTask = taskToEdit!!.copy(
+                            title = title, description = description
                         )
                         viewModel.onTaskUpdated(updatedTask)
                     } else {
                         viewModel.addTask(title, description)
                     }
-                    //Clear input after creating or updating task details
                     title = ""
                     description = ""
                     dismissBottomSheet()
-                }, enabled = isButtonEnabled, colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Blue,
-                    disabledContentColor = Color.LightGray
+                },
+                enabled = true,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isButtonEnabled) Color.Blue else Color.LightGray,
+                    contentColor = Color.White
                 )
             ) {
-
                 Text(buttonText)
             }
-        }
     }
+}
 }
