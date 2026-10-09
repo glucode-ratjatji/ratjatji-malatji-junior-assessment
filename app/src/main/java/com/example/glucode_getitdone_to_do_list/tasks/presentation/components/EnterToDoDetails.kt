@@ -15,8 +15,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Notes
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Button
@@ -65,6 +63,7 @@ fun EnterToDoDetails(
     var showDetailsText by remember { mutableStateOf(false) }
     var showDeadlinePopUp by remember { mutableStateOf(false) }
     var isTaskFavourited by remember {mutableStateOf(false)}
+    var selectedDeadlineMillis by remember { mutableStateOf<Long?>(null) }
 
     //New To-Do changes to Edit To-Do
     val isTaskBeingEdited = taskToEdit != null
@@ -131,9 +130,7 @@ fun EnterToDoDetails(
                     Icon(
                         modifier = Modifier.clickable(onClick = { showDeadlinePopUp = !showDeadlinePopUp }),
                         imageVector = Icons.Default.DateRange,
-                        contentDescription = "Deadline Icon",
-
-                        )
+                        contentDescription = "Deadline Icon",)
                     if (!isTaskFavourited) {
                         Icon(
                             modifier = Modifier.clickable(onClick = { isTaskFavourited = !isTaskFavourited }),
@@ -190,5 +187,14 @@ fun EnterToDoDetails(
                 Text(buttonText)
             }
         }
+        if(showDeadlinePopUp)
+            DateTimePickerDialog(
+                onDateTimeSelected = { combinedMillis ->
+                    selectedDeadlineMillis = combinedMillis
+                    showDeadlinePopUp = false
+                },
+                onDismiss = { showDeadlinePopUp = false
+                }
+            )
     }
 }
