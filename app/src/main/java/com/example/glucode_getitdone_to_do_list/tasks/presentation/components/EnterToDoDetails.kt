@@ -1,34 +1,28 @@
 package com.example.glucode_getitdone_to_do_list.tasks.presentation.components
 
 import android.annotation.SuppressLint
-import android.view.Surface
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material.icons.automirrored.filled.Notes
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -41,17 +35,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.TaskViewModel.TaskViewModel
 import com.example.glucode_getitdone_to_do_list.tasks.data.local.Task
 
@@ -74,6 +62,9 @@ fun EnterToDoDetails(
         )
     }
     val isButtonEnabled = title.isNotEmpty()
+    var showDetailsText by remember { mutableStateOf(false) }
+    var showDeadlinePopUp by remember { mutableStateOf(false) }
+    var isTaskFavourited by remember {mutableStateOf(false)}
 
     //New To-Do changes to Edit To-Do
     val isTaskBeingEdited = taskToEdit != null
@@ -112,27 +103,69 @@ fun EnterToDoDetails(
                         .align(alignment = Alignment.Center)
                 )
             }
-            OutlinedTextField(
-                modifier = Modifier.width(300.dp),
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
                 value = title,
                 onValueChange = { title = it },
                 label = { Text("Title") },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Next) }
                 )
             )
-            OutlinedTextField(
-                modifier = Modifier.width(300.dp),
-                value = description,
-                onValueChange = { description = it },
-                label = { Text("Description") },
-                minLines = 2,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus() }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically // Aligns icons and text vertically
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp) // Optional spacing between icons
+                ) {
+                    Icon(
+                        modifier = Modifier.clickable(onClick = { showDetailsText = !showDetailsText }),
+                        imageVector = Icons.AutoMirrored.Filled.Notes,
+                        contentDescription = "Task Description",
+
+                    )
+                    Icon(
+                        modifier = Modifier.clickable(onClick = { showDeadlinePopUp = !showDeadlinePopUp }),
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Deadline Icon",
+
+                        )
+                    if (!isTaskFavourited) {
+                        Icon(
+                            modifier = Modifier.clickable(onClick = { isTaskFavourited = !isTaskFavourited }),
+                            imageVector = Icons.Default.StarBorder,
+                            contentDescription = "Favourite star",
+                        )
+                    }
+                    if (isTaskFavourited){
+                        Icon(
+                            modifier = Modifier.clickable(onClick = { isTaskFavourited = !isTaskFavourited }),
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Favourite star",
+                        )
+                    }
+                }
+                Text(
+                    text = "Save"
                 )
-            )
+            }
+            if (showDetailsText) {
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = description,
+                    onValueChange = { description = it },
+                    label = { Text("Description") },
+                    minLines = 2,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = { focusManager.clearFocus() }
+                    )
+                )
+            }
             Button(
                 onClick = {
                     if (isTaskBeingEdited) {
